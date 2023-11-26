@@ -1,0 +1,37 @@
+<ng-container *ngFor="let nav of navigation">
+
+    <div *ngIf="nav.id !== 'select'" class="relative py-4 rounded-l-full pr-3">
+        <button class="flex items-center justify-center text-white flex-col ml-5 md:ml-0 md:flex-row"
+            (click)="goRouteLink(nav.link)">
+            <mat-icon [fontIcon]='nav.icon' class="text-lg"></mat-icon>
+            <span class="md:pl-2 text-lg">{{ nav.title }}</span>
+        </button>
+    </div>
+
+    <div *ngIf="nav.id === 'select'" class="relative py-4 rounded-l-full pr-3">
+
+        <div class="flex items-center md:justify-between justify-center">
+            <button
+                class="flex items-center md:items-stretch justify-center text-white flex-col ml-auto md:ml-0 md:flex-row"
+                (click)="nav.expand = !nav.expand">
+                <mat-icon [fontIcon]='nav.icon' class="text-lg md:mb-0"></mat-icon>
+                <span class="md:pl-2 text-lg">{{ nav.title }}</span>
+                <div class="md:block hidden">
+                    <mat-icon class="text-2xl " *ngIf="!nav.expand" fontIcon='expand_less'></mat-icon>
+                    <mat-icon class="text-2xl " *ngIf="nav.expand" fontIcon='expand_more'></mat-icon>
+                </div>
+            </button>
+        </div>
+
+        <ng-container *ngIf="nav.expand">
+            <div class=" flex flex-col mt-3 w-full h-full bg-white rounded-md py-2">
+                <a *ngFor="let nav of nav.children" (click)="goRouteLink(nav.link)"
+                    class="text-black cursor-pointer text-md px-4 pt-2 pb-2 transition duration-200 ease-in rounded-l-full">
+                    <span>{{ nav.title }}</span>
+                </a>
+            </div>
+        </ng-container>
+
+    </div>
+
+</ng-container>

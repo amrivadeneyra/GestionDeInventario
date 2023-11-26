@@ -1,0 +1,78 @@
+<div class="overflow-x-hidden bg-slate-100 h-full">
+    <div class="w-full h-18 bg-red-lighter z-0">
+    </div>
+    <div class="flex h-full">
+
+
+        <div class="md:ml-60 ml-30 w-full h-full">
+
+            <div class="py-7 pl-3">
+                <span class="text-[28px] font-light">Panel de Administración </span>
+            </div>
+
+            <div class="flex items-center justify-center ">
+
+                <form [formGroup]="productForm" (keydown.enter)="$event.preventDefault()"
+                    (keydown.shift.enter)="$event.preventDefault()" class="bg-white p-8 rounded-md shadow-md w-1/2  mb-20">
+
+                    <div class="my-5">
+                        <label for="supplier" class="block text-lg text-gray-500">Proveedor *</label>
+                        <mat-select id="supplier" class="p-2 roun ded-sm text-sm w-full" placeholder="---"
+                            [formControlName]="'supplier'">
+                            <ng-container>
+                                <mat-option *ngFor="let supplier of suppliers" [value]="supplier._id">
+                                    {{supplier.name}}
+                                </mat-option>
+                            </ng-container>
+                        </mat-select>
+                    </div>
+
+                    <div class=" my-5">
+                        <label for="product" class=" text-lg text-gray-500">Producto *</label>
+                        <input id="product" autocomplete="off" type="text" class="form-input"
+                            placeholder="Nombre del producto" [formControlName]="'name'">
+                    </div>
+
+                    <div class="my-5">
+                        <label for="batch" class="text-lg text-gray-500">Lote *</label>
+                        <input id="batch" autocomplete="off" type="text" class="form-input"
+                            placeholder="Ingrese el lote" [formControlName]="'batch'">
+                    </div>
+
+                    <div class="my-5">
+                        <label for="price" class="text-lg text-gray-500">Precio *</label>
+                        <input id="price" autocomplete="off" type="text" class="form-input" placeholder="Ingrese precio"
+                            [formControlName]="'price'">
+                    </div>
+
+                    <div class="my-5">
+                        <label for="quantity" class=" text-lg text-gray-500">Cantidad *</label>
+                        <input id="quantity" autocomplete="off" type="text" class="form-input"
+                            placeholder="Ingrese la cantidad" [formControlName]="'stock'">
+                    </div>
+
+                    <div class="my-5">
+                        <label for="quantity" class=" text-lg text-gray-500">Número de serie *</label>
+                        <input id="quantity" autocomplete="off" type="text" class="form-input"
+                            placeholder="Ingrese número de serie" [formControlName]="'serial_number'">
+                    </div> 
+
+                    <div class="my-5">
+                        <label for="quantity" class=" text-lg text-gray-500">Descripción</label>
+                        <textarea id="quantity" autocomplete="off" type="text" class="form-input min-h-20"
+                            placeholder="Ingrese la descripción" [formControlName]="'description'">
+                        </textarea>
+                    </div>
+
+                    <div class="text-center">
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded-md" (click)="onSubmit()">
+                            <span>Guardar Producto</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <app-sidenav></app-sidenav>
+    </div>
+</div>
