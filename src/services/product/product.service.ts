@@ -25,6 +25,7 @@ export class ProductService {
         const lastProductId = currentList.length > 0 ? parseInt(currentList[currentList.length - 1]._id, 10) : 0;
         const newProduct = { ...product, _id: (lastProductId + 1).toString() };
         const updatedList = [...currentList, newProduct];
+
         this.saveProductsToLocalStorage(updatedList);
         this.productsSubject.next(updatedList);
     }
@@ -37,6 +38,17 @@ export class ProductService {
     deleteProduct(productId: string): void {
         const currentList = this.productsSubject.value;
         const updatedList = currentList.filter(product => product._id !== productId);
+
+        this.saveProductsToLocalStorage(updatedList);
+        this.productsSubject.next(updatedList);
+    }
+    
+    updateProduct(updatedFields: Partial<Product>): void {
+        const currentList = this.productsSubject.value;
+        const updatedList = currentList.map(product =>
+            product._id === updatedFields._id ? { ...product, ...updatedFields } : product
+        );
+
         this.saveProductsToLocalStorage(updatedList);
         this.productsSubject.next(updatedList);
     }

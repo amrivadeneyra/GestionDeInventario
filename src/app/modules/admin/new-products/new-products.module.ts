@@ -26,7 +26,7 @@ import { CommonModule } from '@angular/common';
         MatSelectModule,
         CommonModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
     ],
     exports: [
         NewProductsComponent,
