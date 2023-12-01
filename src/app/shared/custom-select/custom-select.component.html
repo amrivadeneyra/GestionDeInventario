@@ -8,7 +8,7 @@
         </button>
     </div>
 
-    <div *ngIf="nav.id === 'select'" class="relative py-4 rounded-l-full pr-3">
+    <div *ngIf="nav.id === 'select' && hasPermission(nav.rol)" class="relative py-4 rounded-l-full pr-3">
 
         <div class="flex items-center md:justify-between justify-center">
             <button
@@ -18,17 +18,21 @@
                 <span class="md:pl-2 text-lg">{{ nav.title }}</span>
                 <div class="md:block hidden">
                     <mat-icon class="text-2xl " *ngIf="!nav.expand" fontIcon='expand_less'></mat-icon>
-                    <mat-icon class="text-2xl " *ngIf="nav.expand" fontIcon='expand_more'></mat-icon>
+                    <mat-icon class="text-2xl -rotate-90" *ngIf="nav.expand" fontIcon='expand_more'></mat-icon>
                 </div>
             </button>
         </div>
 
         <ng-container *ngIf="nav.expand">
             <div class=" flex flex-col mt-3 w-full h-full bg-white rounded-md py-2">
-                <a *ngFor="let nav of nav.children" (click)="goRouteLink(nav.link)"
-                    class="text-black cursor-pointer text-md px-4 pt-2 pb-2 transition duration-200 ease-in rounded-l-full">
-                    <span>{{ nav.title }}</span>
+                <ng-container *ngFor="let childNav of nav.children">
+                    <a  (click)="hasPermission(childNav.rol) && goRouteLink(childNav.link)"
+                    class="text-black cursor-pointer text-md px-4 pt-2 pb-2 transition duration-200 ease-in rounded-l-full"
+                    *ngIf="hasPermission(childNav.rol)">
+                    <span>{{ childNav.title }}</span>
                 </a>
+                </ng-container>
+                
             </div>
         </ng-container>
 

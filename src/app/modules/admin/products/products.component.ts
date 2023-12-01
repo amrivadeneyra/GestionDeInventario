@@ -1,99 +1,115 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Product } from 'src/app/models/product';
-import { NotificationService } from 'src/services/notification/notification.service';
-import { ProductService } from 'src/services/product/product.service';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ProductsModalComponent } from 'src/app/shared/modals/products-modal/products-modal.component';
-import { Observable, map } from 'rxjs';
-import { ConfirmationModalComponent } from 'src/app/shared/modals/confirmation-modal/confirmation-modal.component';
+import { Category } from 'src/app/models/category';
+import { Product } from 'src/app/models/product';
+import { User } from 'src/app/models/user';
+import { ModalComponent } from 'src/app/shared/modal/modal.component';
+import { categoryValue } from 'src/app/values-force/category';
+import { productsValue } from 'src/app/values-force/products';
+import { usersValue } from 'src/app/values-force/user';
+import { AuthService } from 'src/services/auth/auth.service';
+import { NotificationService } from 'src/services/notification/notification.service';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsComponent implements OnInit {
 
-  @Input() openFromModal: boolean = false;
-  @Input() data: Product = new Product();
-
   products: Product[] = [];
-  currentProduct: Product = new Product();
+  categories: Category[] = [];
 
-  searchTerm: string = '';
+  user: User[] = []
+
+  currentUser: User = new User();
+
+  selectedCategory: number = 0;
 
   constructor(
-    private _productService: ProductService,
-    private _notificationService: NotificationService,
-    private _router: Router,
+    private notificationService: NotificationService,
     private _dialog: MatDialog,
-    private _changeDetection: ChangeDetectorRef,
-
+    private _authService: AuthService,
   ) { }
 
+  /**
+  * OnInit
+  */
   ngOnInit(): void {
+    this.products = productsValue;
+    this.categories = categoryValue;
 
-    this.getProducts()
+    this.user = usersValue;
+    this.currentUser = this._authService.getLoggedInUser();
   }
 
-  getProducts(): void {
-    this._productService.products$.subscribe(products => {
-      this.products = products;
+  /**
+   * 
+   * @param product 
+   */
+  addToCart(product: Product) {
+    // Recuperar productos existentes del localStorage
+    const existingProductsString = localStorage.getItem('cart');
+    const existingProducts: Product[] = existingProductsString ? JSON.parse(existingProductsString) : [];
 
-    });
+    // Agregar el nuevo producto al array
+    existingProducts.push(product);
 
-    this._productService.loadProducts();
-    this._changeDetection.detectChanges();
+    // Guardar el array actualizado en el localStorage
+    localStorage.setItem('cart', JSON.stringify(existingProducts));
+
+    this.notificationService.showSuccess("Se añadió correctamente su producto al carrito de compras.")
+
   }
 
-  deleteProduct(product: Product): void {
+  /**
+   * 
+   * @param product 
+   */
+  increaseQuantity(product: Product) {
+    product.quantity = (product.quantity || 1) + 1;
 
-    const dialogRef = this._dialog.open(ConfirmationModalComponent, {
+  }
+
+  /**
+   * 
+   * @param product 
+   */
+  decreaseQuantity(product: Product) {
+    if (product.quantity && product.quantity > 1) {
+      product.quantity -= 1;
+    }
+  }
+
+  groupedEvent(selectedCategoryId: number): void {
+    this.selectedCategory = selectedCategoryId;
+  }
+
+  filteredProducts(): Product[] {
+    if (!this.selectedCategory) {
+      return this.products;
+    } else {
+      // Filtrar productos por la categoría seleccionada
+      return this.products.filter(product => product.category === this.selectedCategory);
+    }
+  }
+
+
+
+  openModal(): void {
+
+    const userLogged = this._authService.getLoggedInUser();
+
+    const modalType = userLogged ? 'sign-out' : 'sign-in';
+
+    this._dialog.open(ModalComponent, {
       data: {
-        name: product.name
+        type: modalType,
       },
+      width: '40%',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'confirm') {
-        this._productService.deleteProduct(product._id);
-        this._notificationService.showSuccess("Producto eliminado con éxito");
-      }
-    });
-    
-  }
-
-  filterProducts(): Observable<Product[]> {
-    return this._productService.products$.pipe(
-      map(products => products.filter(product =>
-        product.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-      ))
-    );
-  }
-
-  goNewProduct() {
-    this._router.navigate(['/new-products']);
-  }
-
-  clearSearch(): void {
-    this.searchTerm = '';
-  }
-
-  openModal(product: Product): void {
-    this.currentProduct = product;
-
-
-    this._dialog.open(ProductsModalComponent, {
-      data: {
-        data: this.currentProduct
-      },
-      width: '35%',
-      height: '75%'
-    })
-
-    this._changeDetection.detectChanges();
   }
 
 }

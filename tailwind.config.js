@@ -41,6 +41,10 @@ module.exports = {
         'red-lighter': '#E74A3B'
       },
 
+      textColor: {
+        'red-lighter': '#E74A3B'
+      },
+
       flex: {
         '0': '0 0 auto'
       },

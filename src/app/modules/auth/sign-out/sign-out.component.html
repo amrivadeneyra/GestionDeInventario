@@ -1,0 +1,17 @@
+<div class="px-15 py-15">
+
+    <form>
+
+        <div class="mb-6">
+            <p class="text-black text-lg">¡Hola {{ currentUser.name }}! Gracias por usar nuestra plataforma.</p>
+        </div>
+
+
+        <!-- Submit button -->
+        <div class="w-20 h-10" type="submit"
+            class="text-white text-center inline-block w-full rounded bg-primary px-7 pb-2.5 pt-3 text-xl font-medium uppercase leading-normal bg-red-lighter hover:bg-magenta-dark">
+            <button   (click)="signOut()" class="w-full">Cerrar sesión</button>
+        </div>
+
+    </form>
+</div>

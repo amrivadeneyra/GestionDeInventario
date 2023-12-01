@@ -11,6 +11,7 @@ export class SidenavComponent implements OnInit {
 
   constructor(
     private changeDetector: ChangeDetectorRef,
+
   ) { }
 
   ngOnInit(): void {
@@ -21,5 +22,7 @@ export class SidenavComponent implements OnInit {
     this.showOptions = !this.showOptions;
 
   }
+
+
 
 }

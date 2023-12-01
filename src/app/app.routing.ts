@@ -18,9 +18,14 @@ export const appRoutes: Route[] = [
                 loadChildren: () => import('../app/modules/admin/new-products/new-products.module').then(m => m.NewProductsModule),
             },
             {
+                path: 'inventory-products',
+                data: {},
+                loadChildren: () => import('./modules/admin/inventory-products/inventory-products.module').then(m => m.InventoryProductsModule),
+            },
+            {
                 path: 'products',
                 data: {},
-                loadChildren: () => import('../app/modules/admin/products/products.module').then(m => m.ProductsModule),
+                loadChildren: () => import('./modules/admin/products/products.module').then(m => m.ProductsModule),
             },
         ]
     }

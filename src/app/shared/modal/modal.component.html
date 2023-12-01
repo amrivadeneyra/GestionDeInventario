@@ -1,0 +1,14 @@
+<div class="container rounded-2xl text-left transition-all ">
+
+    <ng-container [ngSwitch]="data.type">
+
+        <app-sign-in *ngSwitchCase="'sign-in'" 
+            (closeModal)="eventEmmisionReceiver($event)"></app-sign-in>
+
+        <app-sign-out *ngSwitchCase="'sign-out'"
+            (closeModal)="eventEmmisionReceiver($event)"></app-sign-out>
+    </ng-container>
+
+
+
+</div>

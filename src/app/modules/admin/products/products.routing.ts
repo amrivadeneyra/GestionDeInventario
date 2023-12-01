@@ -1,10 +1,9 @@
-import { Route } from "@angular/router";
-import { ProductsComponent } from "./products.component";
+import { Route } from '@angular/router';
+import { ProductsComponent } from './products.component';
 
-
-export const productsRoutes: Route[]=[
+export const productsRoutes: Route[] = [
     {
         path: '',
         component: ProductsComponent,
     }
-]
+];

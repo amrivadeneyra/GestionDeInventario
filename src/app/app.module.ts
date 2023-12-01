@@ -6,6 +6,7 @@ import { ExtraOptions, PreloadAllModules, RouterModule } from '@angular/router';
 import { appRoutes } from './app.routing';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModalModule } from './shared/modal/modal.module';
 
 const routerConfig: ExtraOptions = {
   preloadingStrategy: PreloadAllModules,
@@ -24,7 +25,8 @@ const routerConfig: ExtraOptions = {
       closeButton: true,
       progressBar: true,
     }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ModalModule,
 
   ],
   providers: [],

@@ -1,0 +1,32 @@
+<div class="px-15 py-15">
+
+    <form [formGroup]="signInForm">
+        <!-- Email input -->
+        <div class="relative mb-10">
+            <input type="text" id="email" class="form-input" placeholder="Correo" [formControlName]="'email'" />
+        </div>
+
+        <!-- Password input -->
+        <div class="relative mb-10">
+            <input type="password" id="password" class="form-input" placeholder="Contraseña"
+                [formControlName]="'password'" />
+        </div>
+        <!-- Remember me checkbox -->
+        <div class="mb-6 flex items-center justify-between">
+            <div class="mb-[0.125rem] block min-h-[1.5rem] pl-[1.5rem]">
+                <input class="mr-2" type="checkbox" value="" id="exampleCheck3" checked />
+                <label class="inline-block pl-[0.15rem] hover:cursor-pointer" for="exampleCheck3">
+                    Recuerdame
+                </label>
+            </div>
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit"
+            class="text-white inline-block w-full rounded bg-primary px-7 pb-2.5 pt-3 text-xl font-medium uppercase leading-normal bg-red-lighter"
+            (click)="signIn()">
+            Ingresar
+        </button>
+
+    </form>
+</div>

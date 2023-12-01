@@ -1,0 +1,72 @@
+<div class="overflow-x-hidden bg-slate-100 h-full">
+    <div class="w-full h-18 bg-red-lighter z-0">
+    </div>
+    <div class="flex h-full">
+
+
+        <div class="md:ml-60 ml-30 w-full h-full">
+
+            <div class="py-7 pl-3 flex justify-between">
+                <span class="text-[28px] font-light">Productos</span>
+
+                <button class="mr-10 w-30 bg-yellow-400 p-2 rounded-full" (click)="goNewProduct()">
+                    <span>Nuevo</span>
+                </button>
+
+            </div>
+
+            <div class="py-7 pl-3 flex justify-between">
+                <span class="text-xl font-light"></span>
+
+                <div class="">
+                    <label>Buscar:</label>
+                    <input class="search-input" [(ngModel)]="searchTerm">
+                    <mat-icon *ngIf="searchTerm.length > 0"
+                        class="relative text-2xl text-black cursor-pointer right-9 top-2.5" fontIcon='close'
+                        (click)="clearSearch()"></mat-icon>
+                </div>
+
+            </div>
+
+            <div class="flex items-center justify-center">
+                <table class="w-full border border-gray-300  mr-5 ">
+                    <thead>
+                        <tr class="uppercase text-center bg-[#5A5C69] text-[#F1FFED] ">
+                            <th class="border p-2">ID</th>
+                            <th class="border p-2">Nombre</th>
+                            <th class="border p-2">Lote</th>
+                            <th class="border p-2">Precio</th>
+                            <th class="border p-2">Cantidad</th>
+                            <th class="border p-2">Categoría</th>
+                            <th class="border p-2">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let product of filterProducts() | async" class="text-center">
+                            <td class="border p-2">{{ product._id }}</td>
+                            <td class="border p-2">{{ product.name }}</td>
+                            <td class="border p-2">{{ product.batch }}</td>
+                            <td class="border p-2">{{ product.price }}</td>
+                            <td class="border p-2">{{ product.stock }}</td>
+                            <td class="border p-2">{{ product.category }}</td>
+                            <td class="border p-2">
+                                <div class="flex justify-around items-center ">
+                                    <button class="w-11 h-11 rounded-md bg-[#1CC88A] flex items-center justify-center"
+                                    (click)="openModal(product)">
+                                        <mat-icon class="text-2xl text-black" fontIcon='edit'></mat-icon>
+                                    </button>
+                                    <button class="w-11 h-11 rounded-md bg-[#8B0C3C] flex items-center justify-center"
+                                        (click)="deleteProduct(product)">
+                                        <mat-icon class="text-2xl text-white" fontIcon='delete'></mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <app-sidenav></app-sidenav>
+    </div>
+</div>

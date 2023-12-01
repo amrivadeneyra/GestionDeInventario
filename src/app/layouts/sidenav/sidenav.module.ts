@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 /* Components */
 import { SidenavComponent } from './sidenav.component';
 import { CustomSelectModule } from 'src/app/shared/custom-select/custom-select.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 /* routing */
 
@@ -20,6 +21,7 @@ import { CustomSelectModule } from 'src/app/shared/custom-select/custom-select.m
         CustomSelectModule,
         MatIconModule,
         CommonModule,
+         MatDialogModule,
     ],
     exports: [
         SidenavComponent,

@@ -1,6 +1,25 @@
-<div class="h-full">
+<div class="h-full overflow-x-hidden">
     <div class="w-full h-18 bg-red-lighter z-0">
+        <div class="md:ml-60 ml-30 h-full w-full">
+            <div class="flex items-center pt-5">
+
+                <ng-container *ngIf="currentUser">
+                    <span class="text-xl uppercase font-semibold w-5/6">{{ currentUser.rol === 'admin' ? 'Bienvenido ' +
+                        currentUser.name :
+                        'Bienvenido ' +
+                        currentUser.name }}</span>
+                </ng-container>
+
+
+                <div class=" w-1/6 mr-7">
+                    <button (click)="openModal()" class="text-black hover:text-white no-underline">
+                    <mat-icon fontIcon="account_circle"></mat-icon>
+                </button>
+                </div>
+                
+
+            </div>
+        </div>
     </div>
-    
     <app-sidenav></app-sidenav>
 </div>
