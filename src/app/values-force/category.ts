@@ -42,3 +42,39 @@ export const categoryValue: Category[] = [
         updated_at: new Date(),
     },
 ]
+
+export const categoryOfType: Category[] = [
+    {
+        _id: "cat1",
+        name: 'Pisos y revestimientos',
+        description: 'Pisos y revestimientos.',
+        category_id: 1,
+        created_at: new Date(),
+        updated_at: new Date(),
+    },
+    {
+        _id: "cat2",
+        name: 'ElectroHogar',
+        description: 'Electrodomesticos para el hogar',
+        category_id: 2,
+        created_at: new Date(),
+        updated_at: new Date(),
+    },
+    {
+        _id: "cat3",
+        name: 'Ferretería',
+        description: 'Ferreteria de gran variedad',
+        category_id: 3,
+        created_at: new Date(),
+        updated_at: new Date(),
+    },
+    {
+        _id: "cat4",
+        name: 'Pintura',
+        description: 'Diversidad en colores y marcas',
+        category_id: 4,
+        created_at: new Date(),
+        updated_at: new Date(),
+    },
+]
+

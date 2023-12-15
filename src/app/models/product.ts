@@ -16,6 +16,7 @@ export class Product {
     supplier: string = '';
     serial_number: string = '';
     reviews: string[] = [];
+    expiration_date: Date = new Date();
 
     created_at: Date = new Date();
     updated_at: Date = new Date();

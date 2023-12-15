@@ -1,5 +1,26 @@
 <div class="overflow-x-hidden bg-slate-100 h-full">
     <div class="w-full h-18 bg-red-lighter z-0">
+        <div class="md:ml-60 ml-30 h-full w-full">
+            <div class="flex items-center pt-5">
+
+                <ng-container *ngIf="currentUser">
+                    <span class="text-xl uppercase font-semibold w-4/6 mr-20">{{ currentUser.rol === 'admin' ?
+                        'Bienvenido ' +
+                        currentUser.name :
+                        'Bienvenido ' +
+                        currentUser.name }}</span>
+                </ng-container>
+
+
+                <div class=" w-1/6 mr-7">
+                    <button (click)="openModalLoggin()" class="text-black hover:text-white no-underline">
+                        <mat-icon fontIcon="account_circle"></mat-icon>
+                    </button>
+                </div>
+
+
+            </div>
+        </div>
     </div>
     <div class="flex h-full">
 
@@ -32,27 +53,30 @@
                 <table class="w-full border border-gray-300  mr-5 ">
                     <thead>
                         <tr class="uppercase text-center bg-[#5A5C69] text-[#F1FFED] ">
-                            <th class="border p-2">ID</th>
+                            <!-- <th class="border p-2">ID</th> -->
                             <th class="border p-2">Nombre</th>
                             <th class="border p-2">Lote</th>
                             <th class="border p-2">Precio</th>
                             <th class="border p-2">Cantidad</th>
                             <th class="border p-2">Categoría</th>
+                            <th class="border p-1">Fecha de vencimiento</th>
                             <th class="border p-2">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let product of filterProducts() | async" class="text-center">
-                            <td class="border p-2">{{ product._id }}</td>
+                            <!-- <td class="border p-2">{{ product._id }}</td> -->
                             <td class="border p-2">{{ product.name }}</td>
                             <td class="border p-2">{{ product.batch }}</td>
                             <td class="border p-2">{{ product.price }}</td>
                             <td class="border p-2">{{ product.stock }}</td>
                             <td class="border p-2">{{ product.category }}</td>
+                            <td class="border p-2">{{ product.expiration_date === null ? 'N/A' :
+                                product.expiration_date | date:'dd/MM/yyyy'}}</td>
                             <td class="border p-2">
                                 <div class="flex justify-around items-center ">
                                     <button class="w-11 h-11 rounded-md bg-[#1CC88A] flex items-center justify-center"
-                                    (click)="openModal(product)">
+                                        (click)="openModal(product)">
                                         <mat-icon class="text-2xl text-black" fontIcon='edit'></mat-icon>
                                     </button>
                                     <button class="w-11 h-11 rounded-md bg-[#8B0C3C] flex items-center justify-center"
@@ -63,8 +87,22 @@
                             </td>
                         </tr>
                     </tbody>
+
                 </table>
+
             </div>
+            <div class="flex justify-center gap-x-6" *ngIf="products.length > 0">
+                <button class="rounded-2xl py-2 px-8 bg-yellow-400 justify-center mt-5 text-lg"
+                    (click)="generateReport()">
+                    <span>Generar reporte de productos</span>
+                </button>
+
+                <button class="rounded-2xl py-2 px-8 bg-yellow-400 justify-center mt-5 text-lg"
+                    (click)="generateReportPDF()">
+                    <span>Generar reporte de productos en PDF</span>
+                </button>
+            </div>
+
         </div>
 
         <app-sidenav></app-sidenav>

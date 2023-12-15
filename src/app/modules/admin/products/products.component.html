@@ -29,15 +29,53 @@
         </div>
 
 
-        <div class="md:ml-60 ml-30 flex items-center justify-center w-5/12 mb-5 mt-10">
-            <label class="mr-4 text-xl">Categorías:</label>
-            <mat-select placeholder="Seleccione una categoría" [(value)]="selectedCategory">
-                <mat-option value="">Todos</mat-option>
-                <mat-option *ngFor="let category of categories" [value]="category.category_id">
-                    {{ category.name}}
-                </mat-option>
-            </mat-select>
+        <div class="flex">
+            <div class="md:ml-60 ml-30 flex flex-1 items-center justify-center w-5/12 mb-5 mt-10">
+                <label class="mr-4 text-xl">Categorías:</label>
+                <mat-select placeholder="Seleccione una categoría" [(value)]="selectedCategory">
+                    <mat-option value="">Todos</mat-option>
+                    <mat-option *ngFor="let category of categories" [value]="category.category_id">
+                        {{ category.name}}
+                    </mat-option>
+                </mat-select>
+            </div>
+
+            <div class="flex-1 ">
+
+                <div class="flex justify-end">
+                    <input class="rounded-full outline-none text-black px-3 w-2/3 mb-5 mt-10 py-2 "
+                        [(ngModel)]="searchTerm" (input)="onSearchChange(searchTerm)">
+                    <mat-icon *ngIf="searchTerm.length === 0"
+                        class="relative text-2xl text-black cursor-pointer right-9 top-12" fontIcon='search'></mat-icon>
+                    <mat-icon *ngIf="searchTerm.length > 0"
+                        class="relative text-2xl text-black cursor-pointer right-9 top-12" fontIcon='close'
+                        (click)="clearSearch()"></mat-icon>
+
+
+                </div>
+                <div class="z-50 max-h-50 w-2/6 overflow-y-auto bg-gray-100 absolute top-40 right-9 border-b-2 border-red-lighter "
+                    *ngIf="searchTerm.length > 0">
+                    <ng-container *ngFor="let search of productsOnSearch">
+                        <div
+                            class="relative text-black hover:bg-white p-5 pl-10 py-3 cursor-pointer  hover:text-red-lighter transition duration-200 ease-in-out">
+
+                            <div class="flex w-full">
+
+                                <button class="flex w-full">
+                                    <label class=" flex-1 text-left">{{search.name}}</label>
+                                    <label class="flex justify-end"> {{search.category}} </label>
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </ng-container>
+                </div>
+
+
+            </div>
         </div>
+
 
         <section class="md:ml-60 ml-30 flex flex-wrap  justify-center items-center">
 

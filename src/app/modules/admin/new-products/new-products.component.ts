@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/product';
 import { Supplier } from 'src/app/models/supplier';
 import { User } from 'src/app/models/user';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
-import { supplierValue } from 'src/app/values-force/suppliers';
+import { categoryOfType, categoryValue } from 'src/app/values-force/category';
+import { supplierPaint, supplierPisos, supplierValue } from 'src/app/values-force/suppliers';
 import { usersValue } from 'src/app/values-force/user';
 import { AuthService } from 'src/services/auth/auth.service';
 import { NotificationService } from 'src/services/notification/notification.service';
@@ -20,7 +22,9 @@ import { ProductService } from 'src/services/product/product.service';
 export class NewProductsComponent implements OnInit {
 
   suppliers: Supplier[] = []
-  batches: string[] = ["A1", "137", "A115"]; 
+  batches: string[] = ["A1", "137", "A115", "1", "2", "3"];
+  categories: Category[] = [];
+  suppliersPaint: Supplier[] = []
 
   user: User[] = []
 
@@ -38,7 +42,9 @@ export class NewProductsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.suppliers = supplierValue;
+    this.suppliers = supplierPisos;
+    this.suppliersPaint = supplierPaint;
+    this.categories = categoryOfType;
     this.initProductForm();
 
     this.user = usersValue;
@@ -54,6 +60,7 @@ export class NewProductsComponent implements OnInit {
       description: [''],
       category: [''],
       image_url: [''],
+      expiration_date: [null],
       supplier: ['', Validators.required],
       serial_number: ['', Validators.required]
 
@@ -79,7 +86,7 @@ export class NewProductsComponent implements OnInit {
 
   }
 
-  addNewBatch():void{
+  addNewBatch(): void {
 
   }
 
@@ -99,5 +106,9 @@ export class NewProductsComponent implements OnInit {
 
   }
 
+  /**
+   * 
+   */
+  resetDate(): void { }
 
 }

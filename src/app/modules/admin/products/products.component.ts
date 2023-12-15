@@ -20,12 +20,15 @@ export class ProductsComponent implements OnInit {
 
   products: Product[] = [];
   categories: Category[] = [];
+  productsOnSearch: Product[] = []
 
   user: User[] = []
 
   currentUser: User = new User();
 
   selectedCategory: number = 0;
+
+  searchTerm: string = '';
 
   constructor(
     private notificationService: NotificationService,
@@ -112,4 +115,30 @@ export class ProductsComponent implements OnInit {
 
   }
 
+  /**
+   * 
+   * @param search 
+   */
+  onSearchChange(search: string): any {
+    this.productsOnSearch = this.filterSearch(search)
+  }
+
+  /**
+   * 
+   * @param searchTerm 
+   * @returns 
+   */
+  filterSearch(searchTerm: string) {
+    const filter = [...productsValue]
+    searchTerm = searchTerm.toLowerCase();
+    return filter.filter(f => f.name.toLowerCase().includes(searchTerm));
+
+  }
+
+  /**
+   * 
+   */
+  clearSearch(): void {
+    this.searchTerm = '';
+  }
 }

@@ -1,6 +1,9 @@
+import { formatDate } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/product';
+import { categoryOfType } from 'src/app/values-force/category';
 import { NotificationService } from 'src/services/notification/notification.service';
 import { ProductService } from 'src/services/product/product.service';
 
@@ -14,6 +17,8 @@ export class ProductsModalComponent implements OnInit {
 
   private updateTimeout: any;
 
+  categories: Category[] = [];
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { data: any, },
     private _productService: ProductService,
@@ -21,6 +26,7 @@ export class ProductsModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.categories = categoryOfType;
   }
 
   updateField(fieldName: string, event: any): void {
@@ -45,6 +51,7 @@ export class ProductsModalComponent implements OnInit {
       price: this.data.data.price,
       stock: this.data.data.stock,
       serial_number: this.data.data.serial_number,
+      expiration_date: this.data.data.expiration_date,
       description: this.data.data.description,
     };
 
@@ -52,5 +59,8 @@ export class ProductsModalComponent implements OnInit {
     this._notificationService.showSuccess("Producto actualzado");
   }
 
+  formatDate(expirationDate: Date | null): string {
+    return expirationDate ? formatDate(expirationDate, 'dd/MM/yyyy', 'en-US') : 'N/A';
+  }
 
 }

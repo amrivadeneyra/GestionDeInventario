@@ -4,6 +4,8 @@
         <div class="py-2">
             <span class="text-xl font-light">Actualizando el producto <label class=" font-semibold">{{data.data.name}}
                 </label></span>
+
+            <img src="" alt="">
         </div>
 
         <div class=" ">
@@ -12,9 +14,15 @@
                 class="bg-white p-8 rounded-md shadow-md mb-10">
 
                 <div class=" my-5">
+                    <label for="product" class=" text-lg text-gray-500">Categoría *</label>
+                    <input disabled id="product" autocomplete="off" type="text" class="form-input"
+                        placeholder="Categoría" [value]="data.data.category">
+                </div>
+
+                <div class=" my-5">
                     <label for="product" class=" text-lg text-gray-500">Proveedor *</label>
                     <input disabled id="product" autocomplete="off" type="text" class="form-input"
-                        placeholder="Nombre del producto" [value]="data.data.supplier">
+                        placeholder="Nombre del proveedor" [value]="data.data.supplier">
                 </div>
 
                 <div class=" my-5">
@@ -25,9 +33,16 @@
                 </div>
 
                 <div class="my-5">
+                    <label for="expiration_date" class=" text-lg text-gray-500">Vencimiento *</label>
+                    <input id="expiration_date" autocomplete="off" type="text" class="form-input"
+                        placeholder="Ingrese fecha" [value]="formatDate(data.data.expiration_date)"
+                        (input)="updateField('expiration_date', $event)">
+                </div>
+
+                <div class="my-5">
                     <label for="batch" class="text-lg text-gray-500">Lote *</label>
-                    <input id="batch" autocomplete="off" type="text" class="form-input" placeholder="Ingrese el lote"
-                        [value]="data.data.batch" (input)="updateField('batch', $event)">
+                    <input id="batch" disabled autocomplete="off" type="text" class="form-input"
+                        placeholder="Ingrese el lote" [value]="data.data.batch" (input)="updateField('batch', $event)">
                 </div>
 
                 <div class="my-5">

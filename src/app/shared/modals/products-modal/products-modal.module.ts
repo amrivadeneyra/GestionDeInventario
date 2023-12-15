@@ -25,11 +25,9 @@ import { NewProductsModule } from 'src/app/modules/admin/new-products/new-produc
         MatButtonModule,
         MatIconModule,
         MatSelectModule,
-        CommonModule,
         FormsModule,
         ReactiveFormsModule,
         MatOptionModule,
-
 
         NewProductsModule,
     ],
